@@ -1,6 +1,6 @@
-name: Skore
+name: WhitelistDiscord
 author: LimeGlass
-description: A Skript addon dedicated to perfecting scoreboards.
+description: A plugin that allows users to whitelist themselves on servers.
 version: 1.0.0
-main: me.limeglass.skore.Skore
-depend: [Skript, TitleManager]
+api-version: 1.13
+main: me.limeglass.whitelist.WhitelistDiscord
