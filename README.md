@@ -1,4 +1,4 @@
-# WhitelistDiscord
+# WhitelistDiscord (1.14.2 last compiled Spigot)
 A Minecraft plugin that allows Whitelisting via Discord
 
 ## Compiling
