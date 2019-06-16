@@ -29,8 +29,8 @@ public class SpigotListener implements Listener {
 	public static final int minutes = 15;
 	private final long channel;
 
-	public SpigotListener() {
-		channel = WhitelistDiscord.getInstance().getChannel();
+	public SpigotListener(long channel) {
+		this.channel = channel;
 	}
 
 	@EventHandler

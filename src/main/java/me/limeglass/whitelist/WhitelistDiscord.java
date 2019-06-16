@@ -29,7 +29,6 @@ public class WhitelistDiscord extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		Action.setup();
-		Bukkit.getPluginManager().registerEvents(new SpigotListener(), this);
 		try {
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("config.properties");
 			if (inputStream != null)
@@ -48,6 +47,7 @@ public class WhitelistDiscord extends JavaPlugin {
 			e.printStackTrace();
 			return;
 		}
+		Bukkit.getPluginManager().registerEvents(new SpigotListener(channel), this);
 		MessageEmbed embed = new EmbedBuilder()
 				.appendDescription("**Server is Online!**")
 				.setColor(Color.WHITE)
