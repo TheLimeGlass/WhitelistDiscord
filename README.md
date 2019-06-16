@@ -1,7 +1,7 @@
 # WhitelistDiscord
 A Minecraft plugin that allows Whitelisting via Discord
 
-###Compiling
+## Compiling
 
 1.) change directories `cd PATH` replace path with your path.
 2.) `git clone https://github.com/TheLimeGlass/WhitelistDiscord`
