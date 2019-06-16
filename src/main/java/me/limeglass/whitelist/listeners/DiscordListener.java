@@ -28,16 +28,18 @@ public class DiscordListener implements EventListener {
 			if (messageEvent.getAuthor().getIdLong() == client.getSelfUser().getIdLong())
 				return;
 			String content = messageEvent.getMessage().getContentDisplay();
-			if (content.equalsIgnoreCase("@Kingdoms")) {
+			if (content.equalsIgnoreCase("@" + client.getSelfUser().getName())) {
 				new Command(messageEvent, "help");
 				return;
 			}
 			String[] split = content.split(" ");
+			String prefix = split[0];
+			if (!prefix.equalsIgnoreCase("@" + client.getSelfUser().getName()))
+				return;
 			if (split.length <= 2) {
 				new Command(messageEvent, "help");
 				return;
 			}
-			String prefix = split[0];
 			String command = split[1];
 			String[] arguments = Arrays.copyOfRange(split, 2, split.length);
 			if (prefix.equalsIgnoreCase("@Kingdoms")) {
