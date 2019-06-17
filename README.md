@@ -12,7 +12,8 @@ A Minecraft plugin that allows Whitelisting via Discord
 client.token = insert discord application token
 discord.channel = 589038675883589643 //Insert your channels ID, look up how to grab a Discord channel's ID with developer options.
 ```
+4.) Make a Discord text channel called `minecraft`, the bot will use that channel use that as the channel id.
 
-4.) `gradle build` if you have gradle installed or `./gradlew build` on unix devices, `gradlew build` works for windows.
+5.) `gradle build` if you have gradle installed or `./gradlew build` on unix devices, `gradlew build` works for windows.
 
-5.) Enjoy, compiled version will be in /build/lib/
+6.) Enjoy, compiled version will be in /build/lib/
