@@ -7,11 +7,8 @@ A Minecraft plugin that allows Whitelisting via Discord
 
 2.) `git clone https://github.com/TheLimeGlass/WhitelistDiscord`
 
-3.) Create a config.properies in the /resources folder, place the following in it:
-```
-client.token = insert discord application token
-discord.channel = 589038675883589643 //Insert your channels ID, look up how to grab a Discord channel's ID with developer options.
-```
+3.) Add your credentials to the config.yml
+
 4.) Make a Discord text channel called `minecraft`, the bot will use that channel use that as the channel id.
 
 5.) `gradle build` if you have gradle installed or `./gradlew build` on unix devices, `gradlew build` works for windows.
