@@ -1,8 +1,6 @@
 # Insert your Discord bot token.
-client-token: "INSERT TOKEN"
-# A list of channels to have the bot join.
-# The bot must be in the server already aswell.
+client-token: "NTg5MDA1NDA5NTQxNTU0MjI1.XQVq7Q.3lnwpcge-iNmk4mFNdbUmwttMbg"
 discord-channels:
-    - "123456789012345678"
-    - "987654321098765432"
-address: "example.server.com"
+    - 515048243365806120
+    - 649423595688427540
+address: "npc-network.net"

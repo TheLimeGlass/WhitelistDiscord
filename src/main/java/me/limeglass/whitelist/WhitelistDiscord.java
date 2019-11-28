@@ -1,10 +1,7 @@
 package me.limeglass.whitelist;
 
 import java.awt.Color;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashSet;
-import java.util.Properties;
 import java.util.Set;
 
 import javax.security.auth.login.LoginException;
@@ -43,13 +40,7 @@ public class WhitelistDiscord extends JavaPlugin {
 			e.printStackTrace();
 			return;
 		}
-		for (String string : getConfig().getStringList("discord-channels")) {
-			long id = 0;
-			try {
-				id = Long.parseLong(string);
-			} catch (NumberFormatException e) {
-				continue;
-			}
+		for (long id : getConfig().getLongList("discord-channels")) {
 			if (id <= 0)
 				continue;
 			TextChannel channel = client.getTextChannelById(id);

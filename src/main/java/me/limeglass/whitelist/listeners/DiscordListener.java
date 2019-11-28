@@ -23,7 +23,7 @@ public class DiscordListener implements EventListener {
 			client.getPresence().setPresence(OnlineStatus.ONLINE, Game.listening("mention me"));
 		else if (event instanceof MessageReceivedEvent) {
 			MessageReceivedEvent messageEvent = (MessageReceivedEvent) event;
-			if (!messageEvent.getChannel().getName().equalsIgnoreCase("minecraft"))
+			if (!WhitelistDiscord.getInstance().getConfig().getLongList("discord-channels").contains(messageEvent.getChannel().getIdLong()))
 				return;
 			if (messageEvent.getAuthor().getIdLong() == client.getSelfUser().getIdLong())
 				return;
@@ -42,7 +42,7 @@ public class DiscordListener implements EventListener {
 			}
 			String command = split[1];
 			String[] arguments = Arrays.copyOfRange(split, 2, split.length);
-			if (prefix.equalsIgnoreCase("@Kingdoms")) {
+			if (prefix.equalsIgnoreCase("@" + client.getSelfUser().getName())) {
 				new Command(messageEvent, command, arguments);
 			} else {
 				Bukkit.broadcastMessage(ChatColor.YELLOW + "[" + ChatColor.BLUE + messageEvent.getAuthor().getName() + ChatColor.YELLOW + "]" + ChatColor.GRAY + ": " + content);
