@@ -1,0 +1,8 @@
+# Insert your Discord bot token.
+client-token: "INSERT TOKEN"
+# A list of channels to have the bot join.
+# The bot must be in the server already aswell.
+discord-channels:
+    - "123456789012345678"
+    - "987654321098765432"
+address: "example.server.com"

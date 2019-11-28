@@ -22,15 +22,16 @@ import me.limeglass.whitelist.WhitelistDiscord;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.TextChannel;
 
 public class SpigotListener implements Listener {
 
 	private final static Set<OfflinePlayer> players = new HashSet<>();
 	public static final int minutes = 15;
-	private final long channel;
+	private final Set<TextChannel> channels;
 
-	public SpigotListener(long channel) {
-		this.channel = channel;
+	public SpigotListener(Set<TextChannel> channels) {
+		this.channels = channels;
 	}
 
 	@EventHandler
@@ -51,10 +52,11 @@ public class SpigotListener implements Listener {
 				.appendDescription("**" + player.getName() + "** joined the server")
 				.setColor(Color.GREEN)
 				.build();
-		new MessageBuilder()
-				.sendTo(WhitelistDiscord.getClient().getTextChannelById(channel))
-				.embed(embed)
-				.submit(true);
+		for (TextChannel channel : channels)
+			new MessageBuilder()
+					.sendTo(channel)
+					.embed(embed)
+					.submit(true);
 		if (!player.hasPlayedBefore()) {
 			Set<ItemStack> gifts = new HashSet<>();
 			gifts.add(new ItemStack(Material.GOLDEN_CARROT, 25));
@@ -69,10 +71,11 @@ public class SpigotListener implements Listener {
 				.appendDescription("**" + event.getPlayer().getName() + "** left the server")
 				.setColor(Color.RED)
 				.build();
-		new MessageBuilder()
-				.sendTo(WhitelistDiscord.getClient().getTextChannelById(channel))
-				.embed(embed)
-				.submit(true);
+		for (TextChannel channel : channels)
+			new MessageBuilder()
+					.sendTo(channel)
+					.embed(embed)
+					.submit(true);
 	}
 
 	@EventHandler
@@ -83,10 +86,11 @@ public class SpigotListener implements Listener {
 				.appendDescription("**" + event.getDeathMessage() + " at " + format + "**")
 				.setColor(Color.BLUE)
 				.build();
-		new MessageBuilder()
-				.sendTo(WhitelistDiscord.getClient().getTextChannelById(channel))
-				.embed(embed)
-				.submit(true);
+		for (TextChannel channel : channels)
+			new MessageBuilder()
+					.sendTo(channel)
+					.embed(embed)
+					.submit(true);
 	}
 
 	@EventHandler
@@ -94,10 +98,11 @@ public class SpigotListener implements Listener {
 		String string = event.getMessage();
 		if (string.startsWith("\\"))
 			return;
-		new MessageBuilder()
-				.sendTo(WhitelistDiscord.getClient().getTextChannelById(channel))
-				.content("`" + event.getPlayer().getName() + "`: " + string)
-				.submit(true);
+		for (TextChannel channel : channels)
+			new MessageBuilder()
+					.sendTo(channel)
+					.content("`" + event.getPlayer().getName() + "`: " + string)
+					.submit(true);
 	}
 
 	public static boolean hasJoinedRecently(OfflinePlayer player) {

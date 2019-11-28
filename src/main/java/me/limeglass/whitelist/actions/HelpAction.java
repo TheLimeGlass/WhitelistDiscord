@@ -28,7 +28,7 @@ public class HelpAction extends Action {
 		builder.addField("whitelist (user)",
 				"Command for users to whitelist themselves on the Minecraft server."
 				+ "\n> *Example:* " + bot.getAsMention() + " `whitelist LimeGlass`", false);
-		builder.addField("Server IP", "**kingdoms.songoda.com**", false);
+		builder.addField("Server IP", "**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "**", false);
 		builder.setColor(Color.GREEN);
 		new MessageBuilder()
 				.sendTo(event.getChannel())
