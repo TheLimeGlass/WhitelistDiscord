@@ -25,7 +25,7 @@ repositories {
 dependencies {
 	
 	//Spigot/Bukkit
-	implementation (group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.14.4-R0.1-SNAPSHOT')
+	implementation (group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.15-R0.1-SNAPSHOT')
 	
 	// JDA
 	shade ('net.dv8tion:JDA:3.8.3_463') {
