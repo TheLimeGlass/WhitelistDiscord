@@ -11,7 +11,7 @@ A Minecraft plugin that allows Whitelisting via Discord
 
 4.) Make a Discord text channel called `minecraft` (must be named that), the bot will use that channel, grab the channel id you will need it in step 7. (Google how to get Discord channels ID's if unknown)
 
-5.) `gradle build` if you have gradle installed or `./gradlew build` on unix devices, `gradlew build` works for windows.
+5.) In the directory execute `gradle build` if you have gradle installed or `./gradlew build` on unix devices, `gradlew build` works for windows.
 
 6.) Compiled version will be in /build/lib/
 
