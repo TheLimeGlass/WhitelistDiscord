@@ -69,7 +69,7 @@ public class WhitelistDiscord extends JavaPlugin {
 				.setColor(Color.BLACK)
 				.build();
 		for (TextChannel channel : channels) {
-			channel.getManager().setTopic("**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "** Online players: 0");
+			channel.getManager().setTopic("**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "** - Online players: 0").queue();
 			new MessageBuilder()
 					.sendTo(channel)
 					.embed(embed)

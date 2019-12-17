@@ -53,7 +53,7 @@ public class SpigotListener implements Listener {
 				.setColor(Color.GREEN)
 				.build();
 		for (TextChannel channel : channels) {
-			channel.getManager().setTopic("**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "** Online players: " + Bukkit.getOnlinePlayers().size());
+			channel.getManager().setTopic("**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "** - Online players: " + Bukkit.getOnlinePlayers().size()).queue();
 			new MessageBuilder()
 					.sendTo(channel)
 					.embed(embed)
@@ -74,7 +74,7 @@ public class SpigotListener implements Listener {
 				.setColor(Color.RED)
 				.build();
 		for (TextChannel channel : channels) {
-			channel.getManager().setTopic("**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "** Online players: " + Bukkit.getOnlinePlayers().size());
+			channel.getManager().setTopic("**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "** - Online players: " + (Bukkit.getOnlinePlayers().size() - 1)).queue();
 			new MessageBuilder()
 					.sendTo(channel)
 					.embed(embed)
