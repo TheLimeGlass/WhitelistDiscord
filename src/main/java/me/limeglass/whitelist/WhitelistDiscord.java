@@ -68,11 +68,13 @@ public class WhitelistDiscord extends JavaPlugin {
 				.appendDescription("**Server Shutting down...**")
 				.setColor(Color.BLACK)
 				.build();
-		for (TextChannel channel : channels)
+		for (TextChannel channel : channels) {
+			channel.getManager().setTopic("**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "** Online players: 0");
 			new MessageBuilder()
 					.sendTo(channel)
 					.embed(embed)
 					.submit(true);
+		}
 		client.shutdown();
 	}
 

@@ -13,7 +13,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -53,11 +52,13 @@ public class SpigotListener implements Listener {
 				.appendDescription("**" + player.getName() + "** joined the server")
 				.setColor(Color.GREEN)
 				.build();
-		for (TextChannel channel : channels)
+		for (TextChannel channel : channels) {
+			channel.getManager().setTopic("**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "** Online players: " + Bukkit.getOnlinePlayers().size());
 			new MessageBuilder()
 					.sendTo(channel)
 					.embed(embed)
 					.submit(true);
+		}
 		if (!player.hasPlayedBefore()) {
 			Set<ItemStack> gifts = new HashSet<>();
 			gifts.add(new ItemStack(Material.GOLDEN_CARROT, 25));
@@ -72,11 +73,13 @@ public class SpigotListener implements Listener {
 				.appendDescription("**" + event.getPlayer().getName() + "** left the server")
 				.setColor(Color.RED)
 				.build();
-		for (TextChannel channel : channels)
+		for (TextChannel channel : channels) {
+			channel.getManager().setTopic("**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "** Online players: " + Bukkit.getOnlinePlayers().size());
 			new MessageBuilder()
 					.sendTo(channel)
 					.embed(embed)
 					.submit(true);
+		}
 	}
 
 	@EventHandler
