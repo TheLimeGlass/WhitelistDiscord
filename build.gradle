@@ -16,25 +16,35 @@ repositories {
 	}
 	
 	 //Bungeecord
-    maven {
-        url "https://oss.sonatype.org/content/repositories/snapshots"
-    }
+	maven {
+		url "https://oss.sonatype.org/content/repositories/snapshots"
+	}
+
+	//Jitpack
+	maven {
+		url 'https://jitpack.io'
+	}
 
 }
 
 dependencies {
-	
+
 	//Spigot/Bukkit
-	implementation (group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.14.4-R0.1-SNAPSHOT')
-	
+	implementation (group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.15-R0.1-SNAPSHOT')
+
+	// Skript
+	implementation (group: 'com.github.SkriptLang', name: 'Skript', version: '2.4-beta8') {
+		transitive = false
+	}
+
 	// JDA
 	shade ('net.dv8tion:JDA:3.8.3_463') {
-        exclude module: 'opus-java'
-    }
-	
+		exclude module: 'opus-java'
+	}
+
 	// Reflections
 	shade 'org.reflections:reflections:0.9.11'
-	
+
 }
 
 processResources {

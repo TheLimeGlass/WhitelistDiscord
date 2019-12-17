@@ -1,6 +1,12 @@
 # Insert your Discord bot token.
 client-token: "insert token"
+# The discord channels by ID of which the bot is allowed to view.
 discord-channels:
     - 123456789012345678
     - 098765432109876543
+# A list of users by their long id in which can execute Skript effects.
+# That is if Skript is enabled and present.
+powerful-people:
+    - 91356983042539520
+# A string that is displayed in the help menu.
 address: "example.com"

@@ -28,25 +28,22 @@ public class DiscordListener implements EventListener {
 			if (messageEvent.getAuthor().getIdLong() == client.getSelfUser().getIdLong())
 				return;
 			String content = messageEvent.getMessage().getContentDisplay();
-			if (content.equalsIgnoreCase("@" + client.getSelfUser().getName())) {
-				new Command(messageEvent, "help");
-				return;
-			}
-			String[] split = content.split(" ");
-			String prefix = split[0];
-			if (!prefix.equalsIgnoreCase("@" + client.getSelfUser().getName()))
-				return;
-			if (split.length <= 2) {
-				new Command(messageEvent, "help");
-				return;
-			}
-			String command = split[1];
-			String[] arguments = Arrays.copyOfRange(split, 2, split.length);
-			if (prefix.equalsIgnoreCase("@" + client.getSelfUser().getName())) {
+			if (content.toLowerCase().startsWith("@" + client.getSelfUser().getName().toLowerCase())) {
+				if (content.equalsIgnoreCase("@" + client.getSelfUser().getName())) {
+					new Command(messageEvent, "help");
+					return;
+				}
+				String[] split = content.split(" ");
+				if (split.length <= 2) {
+					new Command(messageEvent, "help");
+					return;
+				}
+				String command = split[1];
+				String[] arguments = Arrays.copyOfRange(split, 2, split.length);
 				new Command(messageEvent, command, arguments);
-			} else {
-				Bukkit.broadcastMessage(ChatColor.YELLOW + "[" + ChatColor.BLUE + messageEvent.getAuthor().getName() + ChatColor.YELLOW + "]" + ChatColor.GRAY + ": " + content);
+				return;
 			}
+			Bukkit.broadcastMessage(ChatColor.YELLOW + "[" + ChatColor.BLUE + messageEvent.getAuthor().getName() + ChatColor.YELLOW + "]" + ChatColor.GRAY + ": " + content);
 		}
 	}
 
