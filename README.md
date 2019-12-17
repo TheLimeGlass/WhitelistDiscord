@@ -9,7 +9,7 @@ A Minecraft plugin that allows Whitelisting via Discord
 
 3.) Make a Discord bot application at https://discordapp.com/developers/applications make it a bot to then get it's bot token, you will need to add that to the config.yml in step 7. Discord also has a bot invite link generator on the same page as of writting this, you can use that to invite your newly made bot to your server (You must have admin permissions on guild).
 
-4.) Make a Discord text channel called `minecraft` (must be named that), the bot will use that channel use that as the channel id. (Google how to get Discord channels ID's if unknown)
+4.) Make a Discord text channel called `minecraft` (must be named that), the bot will use that channel, grab the channel id you will need it in step 7. (Google how to get Discord channels ID's if unknown)
 
 5.) `gradle build` if you have gradle installed or `./gradlew build` on unix devices, `gradlew build` works for windows.
 
