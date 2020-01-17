@@ -43,7 +43,7 @@ dependencies {
 	}
 
 	// Reflections
-	shade 'org.reflections:reflections:0.9.11'
+	shade 'org.reflections:reflections:0.9.12'
 
 }
 
