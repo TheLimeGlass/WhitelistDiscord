@@ -30,7 +30,7 @@ repositories {
 dependencies {
 
 	//Spigot/Bukkit
-	implementation (group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.15.1-R0.1-SNAPSHOT')
+	implementation (group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.1-R0.1-SNAPSHOT')
 
 	// Skript
 	implementation (group: 'com.github.SkriptLang', name: 'Skript', version: '2.4-beta8') {
