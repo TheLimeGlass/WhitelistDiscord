@@ -38,7 +38,7 @@ dependencies {
 	}
 
 	// JDA
-	shade ('net.dv8tion:JDA:3.8.3_463') {
+	shade ('net.dv8tion:JDA:4.2.0_222') {
 		exclude module: 'opus-java'
 	}
 
