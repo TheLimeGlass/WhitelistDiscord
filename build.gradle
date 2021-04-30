@@ -33,7 +33,7 @@ dependencies {
 	implementation (group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.16.5-R0.1-SNAPSHOT')
 
 	// Skript
-	implementation (group: 'com.github.SkriptLang', name: 'Skript', version: '2.4-beta8') {
+	implementation (group: 'com.github.SkriptLang', name: 'Skript', version: '2.5.3') {
 		transitive = false
 	}
 
