@@ -39,7 +39,7 @@ dependencies {
 		transitive = false
 	}
 
-	shadow 'org.reflections:reflections:0.9.11'
+	shadow 'org.reflections:reflections:0.10.2'
 
 }
 
