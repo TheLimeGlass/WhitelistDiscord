@@ -1,7 +1,7 @@
 name: WhitelistDiscord
 author: LimeGlass
 description: A plugin that allows users to whitelist themselves on servers.
-version: 1.0.2
+version: 1.0.3
 api-version: 1.15
 softdepend: [Skript]
 main: me.limeglass.whitelist.WhitelistDiscord

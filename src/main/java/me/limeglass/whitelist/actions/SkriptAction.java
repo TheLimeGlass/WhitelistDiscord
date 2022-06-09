@@ -7,9 +7,8 @@ import org.bukkit.Bukkit;
 import ch.njol.skript.lang.Effect;
 import me.limeglass.whitelist.WhitelistDiscord;
 import me.limeglass.whitelist.objects.Action;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class SkriptAction extends Action {
 
@@ -38,10 +37,7 @@ public class SkriptAction extends Action {
 				effect.run(null);
 				builder.appendDescription("Executing effect `" + entry + "`");
 			}
-			new MessageBuilder()
-					.sendTo(event.getChannel())
-					.embed(builder.build())
-					.submit(true);
+			event.getChannel().sendMessageEmbeds(builder.build()).queue();
 		});
 	}
 

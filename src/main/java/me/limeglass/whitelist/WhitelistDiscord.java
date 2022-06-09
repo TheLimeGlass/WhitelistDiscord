@@ -12,17 +12,18 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.limeglass.whitelist.listeners.DiscordListener;
 import me.limeglass.whitelist.listeners.SpigotListener;
 import me.limeglass.whitelist.objects.Action;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class WhitelistDiscord extends JavaPlugin {
 
 	private Set<TextChannel> channels = new HashSet<>();
 	private static WhitelistDiscord instance;
+	private SpigotListener listener;
 	private static JDA client;
 
 	public void onEnable() {
@@ -32,8 +33,9 @@ public class WhitelistDiscord extends JavaPlugin {
 		if (!getConfig().isSet("client-token"))
 			return;
 		try {
-			client = new JDABuilder(getConfig().getString("client-token"))
-			        .addEventListener(new DiscordListener())
+			client = JDABuilder.createDefault(getConfig().getString("client-token"))
+					.setActivity(Activity.listening("mention me"))
+			        .addEventListeners(new DiscordListener(this))
 			        .build();
 			client.awaitReady();
 		} catch (LoginException | InterruptedException e) {
@@ -49,17 +51,15 @@ public class WhitelistDiscord extends JavaPlugin {
 			channels.add(channel);
 			System.out.println("Added channel " + id + " " + channel.getName());
 		}
-		Bukkit.getPluginManager().registerEvents(new SpigotListener(channels), this);
+		listener = new SpigotListener(this, channels);
+		Bukkit.getPluginManager().registerEvents(listener, this);
 		MessageEmbed embed = new EmbedBuilder()
 				.appendDescription("**Server is Online!**")
 				.setColor(Color.WHITE)
 				.build();
 		channels.removeIf(channel -> channel == null);
 		for (TextChannel channel : channels)
-			new MessageBuilder()
-					.sendTo(channel)
-					.embed(embed)
-					.submit(true);
+			channel.sendMessageEmbeds(embed).queue();
 		Bukkit.getLogger().info("WhitelistDiscord has been enabled!");
 	}
 
@@ -70,19 +70,20 @@ public class WhitelistDiscord extends JavaPlugin {
 				.build();
 		for (TextChannel channel : channels) {
 			channel.getManager().setTopic("**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "** - Online players: 0").queue();
-			new MessageBuilder()
-					.sendTo(channel)
-					.embed(embed)
-					.submit(true);
+			channel.sendMessageEmbeds(embed).queue();
 		}
 		client.shutdown();
+	}
+
+	public SpigotListener getListner() {
+		return listener;
 	}
 
 	public static WhitelistDiscord getInstance() {
 		return instance;
 	}
 
-	public static JDA getClient() {
+	public JDA getClient() {
 		return client;
 	}
 

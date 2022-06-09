@@ -12,10 +12,9 @@ import com.google.common.collect.Sets;
 import me.limeglass.whitelist.WhitelistDiscord;
 import me.limeglass.whitelist.listeners.SpigotListener;
 import me.limeglass.whitelist.objects.Action;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class WhitelistAction extends Action {
 
@@ -62,10 +61,7 @@ public class WhitelistAction extends Action {
 			}
 			builder.appendDescription(":white_check_mark: **" + parameter + "** " + " whitelisted\n");
 		}
-		new MessageBuilder()
-				.sendTo(event.getChannel())
-				.embed(builder.build())
-				.submit(true);
+		event.getChannel().sendMessageEmbeds(builder.build()).queue();
 	}
 
 }

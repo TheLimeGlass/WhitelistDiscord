@@ -18,26 +18,29 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
+import com.google.common.collect.Sets;
+
 import me.limeglass.whitelist.WhitelistDiscord;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class SpigotListener implements Listener {
 
 	private final static Set<OfflinePlayer> players = new HashSet<>();
+	private final Set<TextChannel> channels = new HashSet<>();
+	private final WhitelistDiscord instance;
 	public static final int minutes = 15;
-	private final Set<TextChannel> channels;
 
-	public SpigotListener(Set<TextChannel> channels) {
-		this.channels = channels;
+	public SpigotListener(WhitelistDiscord instance, Set<TextChannel> channels) {
+		this.channels.addAll(channels);
+		this.instance = instance;
 	}
 
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		players.add(event.getPlayer());
-		Bukkit.getScheduler().runTaskLaterAsynchronously(WhitelistDiscord.getInstance(), new Runnable() {
+		Bukkit.getScheduler().runTaskLaterAsynchronously(instance, new Runnable() {
 			@Override
 			public void run() {
 				players.remove(event.getPlayer());
@@ -53,32 +56,28 @@ public class SpigotListener implements Listener {
 				.setColor(Color.GREEN)
 				.build();
 		for (TextChannel channel : channels) {
-			channel.getManager().setTopic("**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "** - Online players: " + Bukkit.getOnlinePlayers().size()).queue();
-			new MessageBuilder()
-					.sendTo(channel)
-					.embed(embed)
-					.submit(true);
+			channel.getManager().setTopic("**" + instance.getConfig().getString("address", "example.server.com") + "** - Online players: " + Bukkit.getOnlinePlayers().size()).queue();
+			channel.sendMessageEmbeds(embed).queue();
 		}
-		if (!player.hasPlayedBefore()) {
-			Set<ItemStack> gifts = new HashSet<>();
-			gifts.add(new ItemStack(Material.GOLDEN_CARROT, 25));
-			gifts.add(new ItemStack(Material.TORCH, 10));
-			player.getInventory().addItem(gifts.toArray(new ItemStack[gifts.size()]));
-		}
+		if (!player.hasPlayedBefore() && instance.getConfig().getBoolean("gift-login-rewards", true))
+			player.getInventory().addItem(new ItemStack(Material.GOLDEN_CARROT, 25), new ItemStack(Material.TORCH, 10));
 	}
 
 	@EventHandler
 	public void onLeave(PlayerQuitEvent event) {
-		MessageEmbed embed = new EmbedBuilder()
-				.appendDescription("**" + event.getPlayer().getName() + "** left the server")
-				.setColor(Color.RED)
-				.build();
-		for (TextChannel channel : channels) {
-			channel.getManager().setTopic("**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "** - Online players: " + (Bukkit.getOnlinePlayers().size() - 1)).queue();
-			new MessageBuilder()
-					.sendTo(channel)
-					.embed(embed)
-					.submit(true);
+		try {
+			MessageEmbed embed = new EmbedBuilder()
+					.appendDescription("**" + event.getPlayer().getName() + "** left the server")
+					.setColor(Color.RED)
+					.build();
+			for (TextChannel channel : channels) {
+				channel.getManager().setTopic("**" + WhitelistDiscord.getInstance().getConfig().getString("address", "example.server.com") + "** - Online players: " + (Bukkit.getOnlinePlayers().size() - 1)).queue();
+				channel.sendMessageEmbeds(embed).queue();
+			}
+		} catch (IllegalStateException e) {
+			Set<TextChannel> clone = Sets.newHashSet(channels);
+			channels.clear();
+			clone.forEach(channel -> channels.add(instance.getClient().getTextChannelById(channel.getIdLong())));
 		}
 	}
 
@@ -91,10 +90,7 @@ public class SpigotListener implements Listener {
 				.setColor(Color.BLUE)
 				.build();
 		for (TextChannel channel : channels)
-			new MessageBuilder()
-					.sendTo(channel)
-					.embed(embed)
-					.submit(true);
+			channel.sendMessageEmbeds(embed).queue();
 	}
 
 	@EventHandler
@@ -103,10 +99,7 @@ public class SpigotListener implements Listener {
 		if (string.startsWith("\\"))
 			return;
 		for (TextChannel channel : channels)
-			new MessageBuilder()
-					.sendTo(channel)
-					.content("`" + event.getPlayer().getName() + "`: " + string)
-					.submit(true);
+			channel.sendMessage("`" + event.getPlayer().getName() + "`: " + string).queue();
 	}
 
 	public static boolean hasJoinedRecently(OfflinePlayer player) {

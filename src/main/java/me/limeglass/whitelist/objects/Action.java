@@ -9,7 +9,7 @@ import org.reflections.Reflections;
 
 import com.google.common.reflect.Reflection;
 
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public abstract class Action {
 
