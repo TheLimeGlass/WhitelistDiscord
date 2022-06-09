@@ -24,12 +24,12 @@ repositories {
 
 dependencies {
 	// JDA
-	implementation (group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.12') {
+	shadow (group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.12') {
 		exclude module: 'opus-java'
 	}
 
 	// Logging
-	implementation (group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.11')
+	shadow (group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.11')
 
 	// Spigot
 	implementation (group: 'org.spigotmc', name: 'spigot-api', version: '1.19-R0.1-SNAPSHOT')
