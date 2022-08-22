@@ -24,7 +24,7 @@ repositories {
 
 dependencies {
 	// JDA
-	shadow (group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.17') {
+	shadow (group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.18') {
 		exclude module: 'opus-java'
 	}
 
